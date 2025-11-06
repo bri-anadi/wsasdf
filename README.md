@@ -1,27 +1,49 @@
 # Wikipedia Web Scraper
 
-Web scraper Python untuk mengambil data dari Wikipedia menggunakan BeautifulSoup4 dan Requests.
+Web scraper Python untuk mengambil data dari Wikipedia menggunakan BeautifulSoup4 dan Requests, dengan dukungan Telegram Bot untuk akses mudah.
 
 ## Fitur
 
+### Command Line Interface
 - Scraping homepage Wikipedia untuk mengambil title, meta description, links, images, dan headings
 - Extract article links dari halaman
 - Scraping artikel lengkap dengan title, summary, content, categories, infobox, dan references
 - Mendukung multiple bahasa Wikipedia (en, id, dll)
 - **Export artikel ke PDF** dengan format yang rapi dan mudah dibaca
+- **Search artikel** menggunakan Wikipedia API
 - Extract JSON-LD structured data
 - Simpan hasil ke file JSON
 - Logging untuk monitoring proses scraping
 - Rate limiting untuk menghindari blocking
 - User-Agent headers untuk menghindari deteksi bot
 
+### Telegram Bot (NEW!)
+- **Search artikel** - Cari artikel Wikipedia langsung dari chat
+- **Export to PDF** - Generate dan kirim PDF artikel ke Telegram
+- **Compare articles** - Bandingkan 2 artikel side-by-side
+- **Multi-language** - Support English dan Indonesian Wikipedia
+- **Bookmark system** - Simpan artikel favorit
+- **Random article** - Discover artikel random
+- **Statistics tracking** - Monitor penggunaan personal
+- **Inline keyboard** - Navigasi interaktif dengan buttons
+- **Rate limiting** - Built-in protection dari spam
+
+**Coba bot sekarang:** [@wikiscrap_bot](https://t.me/wikiscrap_bot)
+
+**Setup bot sendiri:** Lihat [BOT_SETUP.md](BOT_SETUP.md) untuk panduan lengkap
+
 ## Requirements
 
+### Untuk Command Line
 - Python 3.7+
 - requests
 - beautifulsoup4
 - lxml
 - reportlab (untuk export PDF)
+
+### Untuk Telegram Bot (tambahan)
+- python-telegram-bot >= 20.0
+- python-dotenv >= 1.0.0
 
 ## Instalasi
 
@@ -186,6 +208,224 @@ print(f"References: {article['references']}")
 - `save_to_json(data, filename)` - Simpan data ke JSON file
 - `export_to_pdf(article_data, filename)` - Export artikel ke PDF dengan format yang rapi
 
+## Telegram Bot
+
+### Fitur Bot
+
+#### 1. Search Article
+```
+/search Python programming
+```
+Bot akan mencari artikel dan menampilkan:
+- Title artikel
+- Ringkasan (summary)
+- Jumlah kategori dan referensi
+- Link ke artikel asli
+- Inline buttons untuk export PDF atau bookmark
+
+#### 2. Export to PDF
+```
+/pdf Artificial Intelligence
+```
+Bot akan:
+- Search artikel
+- Scrape konten lengkap
+- Generate PDF dengan format rapi
+- Upload dan kirim file PDF langsung ke chat
+
+#### 3. Compare Articles (NEW!)
+```
+/compare Python vs Java
+/compare iPhone vs Android
+/compare Bitcoin vs Ethereum
+```
+
+Bot akan membandingkan dua artikel dengan menampilkan:
+- **Basic Statistics**: Jumlah kategori, referensi, dan panjang konten
+- **Common Categories**: Kategori yang sama antara kedua artikel
+- **Infobox Comparison**: Perbandingan data terstruktur dari infobox
+- **Summaries**: Ringkasan masing-masing artikel
+- **Quick Links**: Link ke kedua artikel
+
+Format yang didukung:
+- `/compare Topic1 vs Topic2`
+- Case insensitive (vs, VS, Vs)
+- Bekerja dengan bahasa yang dipilih user
+
+Contoh output:
+```
+📊 Perbandingan: Python vs Java
+
+━━━━━━━━━━━━━━━━━━━━
+📝 Python (programming language)
+• Kategori: 25
+• Referensi: 156
+• Panjang: 45234 karakter
+
+📝 Java (programming language)
+• Kategori: 28
+• Referensi: 189
+• Panjang: 52341 karakter
+━━━━━━━━━━━━━━━━━━━━
+
+🔗 Kategori Sama:
+• Programming languages
+• Object-oriented programming
+• Cross-platform software
+
+📋 Perbandingan Info:
+Paradigm:
+  1️⃣ Multi-paradigm: object-oriented...
+  2️⃣ Object-oriented (class-based)...
+
+📄 Ringkasan:
+Python: Python is a high-level...
+Java: Java is a high-level...
+```
+
+#### 4. Language Switch
+```
+/language
+```
+Pilih bahasa Wikipedia:
+- English (default)
+- Indonesian
+
+#### 5. Random Article
+```
+/random
+```
+Dapatkan artikel random untuk discovery.
+
+#### 6. Bookmark System
+```
+/bookmark Machine Learning
+/bookmarks
+```
+Simpan artikel favorit dan lihat list bookmark.
+
+#### 7. Statistics
+```
+/stats
+```
+Lihat statistik personal:
+- Total pencarian
+- Jumlah bookmark
+- Bahasa yang digunakan
+
+### Setup Bot Telegram
+
+Untuk menjalankan bot Telegram sendiri:
+
+1. **Buat bot di Telegram:**
+   - Chat dengan [@BotFather](https://t.me/BotFather)
+   - Ketik `/newbot` dan ikuti instruksi
+   - Simpan token yang diberikan
+
+2. **Setup environment:**
+   ```bash
+   cp .env.example .env
+   # Edit .env dan masukkan token
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Jalankan bot:**
+   ```bash
+   python telegram_bot.py
+   ```
+
+5. **Konfigurasi bot (opsional):**
+   - Set commands menu dengan BotFather: `/setcommands`
+   - Set description: `/setdescription`
+   - Set about text: `/setabouttext`
+   - Upload profile picture: `/setuserpic`
+
+**Panduan lengkap:** Lihat [BOT_SETUP.md](BOT_SETUP.md)
+
+### Bot Commands
+
+```
+start - Start the bot
+help - Show help message
+search - Search Wikipedia article
+pdf - Export article to PDF
+compare - Compare two articles (format: /compare A vs B)
+language - Change language (EN/ID)
+random - Get random article
+bookmark - Save article to bookmarks
+bookmarks - View saved bookmarks
+stats - View your reading stats
+about - About this bot
+```
+
+### Coba Bot
+
+Bot sudah live dan bisa dicoba di Telegram:
+**[@wikiscrap_bot](https://t.me/wikiscrap_bot)**
+
+Fitur yang tersedia:
+- Search artikel Wikipedia
+- Export artikel ke PDF
+- Compare dua artikel
+- Multi-language (EN/ID)
+- Bookmark system
+- Random article discovery
+- Personal statistics
+
+## Update Log
+
+### Version 1.1.0 (Latest)
+**Tanggal:** 2025-01-15
+
+**Fitur Baru:**
+- **Telegram Bot Integration**
+  - Implementasi lengkap Telegram Bot dengan python-telegram-bot
+  - Support untuk semua fitur CLI melalui chat interface
+  - Inline keyboard untuk navigasi interaktif
+  - Rate limiting built-in untuk mencegah spam
+
+- **Compare Articles Feature**
+  - Command: `/compare Topic1 vs Topic2`
+  - Bandingkan statistik dasar (kategori, referensi, panjang)
+  - Tampilkan kategori yang sama
+  - Perbandingan infobox data
+  - Ringkasan masing-masing artikel
+  - Available di CLI dan Telegram Bot
+
+- **Search Enhancement**
+  - Method `search_article()` menggunakan Wikipedia OpenSearch API
+  - Auto-suggest artikel yang relevan
+  - Support untuk pencarian multi-kata
+
+**Improvements:**
+- User data management dengan in-memory storage
+- Language preference per user
+- Bookmark system untuk simpan artikel favorit
+- Statistics tracking (jumlah pencarian, bookmark)
+- Better error handling dan logging
+- Responsive inline keyboard interface
+
+**Files Added:**
+- `telegram_bot.py` - Main bot implementation
+- `BOT_SETUP.md` - Panduan lengkap setup bot
+- `.env.example` - Template environment variables
+- Updated `requirements.txt` dengan dependencies bot
+
+### Version 1.0.0
+**Tanggal:** 2025-01-10
+
+**Initial Release:**
+- Web scraper untuk Wikipedia
+- Support multi-language (EN/ID)
+- Export to PDF
+- Command line interface
+- JSON output
+- Basic scraping features
+
 ## Catatan Penting
 
 - Script ini hanya untuk tujuan edukatif dan penelitian
@@ -194,6 +434,7 @@ print(f"References: {article['references']}")
 - Gunakan rate limiting untuk menghindari overload server
 - Wikipedia bersifat open dan mendukung scraping untuk tujuan non-komersial
 - Pertimbangkan menggunakan Wikipedia API untuk kebutuhan yang lebih kompleks
+- Bot Telegram sudah include rate limiting untuk mencegah abuse
 
 ## Troubleshooting
 
